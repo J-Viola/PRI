@@ -9,14 +9,14 @@ SET NAMES utf8mb4;
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
+  `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
+  UNIQUE KEY `username` (`username`)
 );
 
 -- vložení základních uživatelů pro test / administraci
-INSERT INTO `users` (`id`, `name`, `password`) VALUES
+INSERT INTO `users` (`id`, `username`, `password`) VALUES
 (1,	'jv',	'jvtest'),
 (2,	'Mike',	'theone'),
 (3,	'Nemo',	  'alreadyfound');
@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `playlists`;
 CREATE TABLE `playlists` (
   `id` int NOT NULL AUTO_INCREMENT,
   `album` varchar(100) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `username` varchar(100) NOT NULL,
   `listened` int unsigned NOT NULL,
   PRIMARY KEY (`nazev`)
 );

@@ -5,12 +5,12 @@ require INC . '/html-begin.php';
 
 switch (@$_POST['akce']) {
     case 'login':
-        if (authUser($jmeno = @$_POST['jmeno'], @$_POST['heslo']))
-            setJmeno($jmeno);
+        if (authUser($username = $_POST['username'] ?? '', $_POST['password'] ?? ''))
+            setUser($username);  // Corrected from setJmeno to setUser
         break;
 
     case 'logout':
-        setJmeno();
+        setUser();
         break;
 }
 
@@ -30,7 +30,7 @@ $inputClass = "form-control";
             let { jmeno, heslo } = this.elements
 
             // trim and check
-            if ((jmeno.value = jmeno.value.trim()).length < 3) {
+            if ((jmeno.value = jmeno.value.trim()).length < 2) {
                 alert('Jméno je krátké')
                 return
             }

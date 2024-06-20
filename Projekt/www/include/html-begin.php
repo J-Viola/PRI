@@ -13,6 +13,11 @@
     <title>
         <?= TITLE ?>
     </title>
+    <style>
+        body {
+            padding-top: 70px; /* Adjust this value based on the height of your navbar */
+        }
+    </style>
 </head>
 
 <body>

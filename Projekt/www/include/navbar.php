@@ -8,8 +8,8 @@ require INC . '/pages.php';
         <!-- logo & title -->
         <a class="navbar-brand" href='/'>
             <div class="d-flex align-items-center">
-                <img src="./assets/drink.jpg" class="h-8 mr-3" alt="Logo"/>
-                <span class="text-2xl font-semibold">
+                <img src="./assets/cover.jpg" style="height: 40px; width: auto; margin-right: 10px;" alt="Logo"/>
+                <span class="font-semibold">
                     <?= TITLE . getUser(': ') ?>
                 </span>
             </div>
@@ -46,3 +46,4 @@ require INC . '/pages.php';
         }
     });
 </script>
+
