@@ -5,13 +5,8 @@ require INC . '/html-begin.php';
 
 switch (@$_POST['akce']) {
     case 'login':
-<<<<<<< Updated upstream
-        if (authUser($username = $_POST['username'] ?? '', $_POST['password'] ?? ''))
+        if (authUser($username = $_POST['jmeno'], $_POST['heslo']))
             setUser($username);  // Corrected from setJmeno to setUser
-=======
-        if (authUser($jmeno = @$_POST['jmeno'], @$_POST['heslo']))
-            setUser($jmeno);
->>>>>>> Stashed changes
         break;
 
     case 'logout':
@@ -23,36 +18,6 @@ switch (@$_POST['akce']) {
 require INC . '/navbar.php';
 ?>
 
-<<<<<<< Updated upstream
-<script>
-    function onSubmit(e) {
-        // no default submit
-        e.preventDefault()
-
-        <?php if (!isUser()) { ?>
-            // inputs
-            let { jmeno, heslo } = this.elements
-
-            // trim and check
-            if ((jmeno.value = jmeno.value.trim()).length < 2) {
-                alert('Jméno je krátké')
-                return
-            }
-
-            // trim and check
-            if ('heslo' == (heslo.value = heslo.value.trim())) {
-                alert('Heslo nesmí být "heslo"')
-                return
-            }
-        <?php } ?>
-
-        // continue to submit
-        this.submit()
-    }
-</script>
-
-=======
->>>>>>> Stashed changes
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
