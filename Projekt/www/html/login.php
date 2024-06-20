@@ -5,8 +5,13 @@ require INC . '/html-begin.php';
 
 switch (@$_POST['akce']) {
     case 'login':
+<<<<<<< Updated upstream
         if (authUser($username = $_POST['username'] ?? '', $_POST['password'] ?? ''))
             setUser($username);  // Corrected from setJmeno to setUser
+=======
+        if (authUser($jmeno = @$_POST['jmeno'], @$_POST['heslo']))
+            setUser($jmeno);
+>>>>>>> Stashed changes
         break;
 
     case 'logout':
@@ -16,10 +21,9 @@ switch (@$_POST['akce']) {
 
 // nav až po nastavení jména, aby se zobrazilo
 require INC . '/navbar.php';
-
-$inputClass = "form-control";
 ?>
 
+<<<<<<< Updated upstream
 <script>
     function onSubmit(e) {
         // no default submit
@@ -47,6 +51,8 @@ $inputClass = "form-control";
     }
 </script>
 
+=======
+>>>>>>> Stashed changes
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">

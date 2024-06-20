@@ -23,7 +23,11 @@ function authUser(string $username, string $password): bool
     $username = dbEscape($username);
     $password = dbEscape($password);
 
+<<<<<<< Updated upstream
     if ($result = dbQuery("SELECT id FROM users WHERE username=$username AND password=$password")) {
+=======
+    if ($result = dbQuery("select id from users where name=$username and password=$password")) {
+>>>>>>> Stashed changes
         if ($result->num_rows) {
             // fetch_all() vrací pole polí (řádky, a každá má políčka)
             // [[$id]] je dekonstrukce: vezme první hodnotu z první řádky
@@ -35,6 +39,7 @@ function authUser(string $username, string $password): bool
 
     return false;
 }
+
 
 // popularita
 function precteno(string $playlist): int
