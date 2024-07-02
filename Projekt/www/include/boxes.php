@@ -15,3 +15,5 @@ function successBox($text)
     </div>
 <?php }
 ?>
+
+<?php

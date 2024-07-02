@@ -1,65 +1,63 @@
 <?php // Upload Playlist
+require '../prolog.php';
 require INC . '/html-begin.php';
-require INC . '/nav.php';
-require INC . '/tools.php';
+require INC . '/navbar.php';
 require INC .'/boxes.php';
+?>
 
-function xmlValidate($xmlFile, $dtdFile)
-{
-    libxml_use_internal_errors(true);
-    $xml = new DOMDocument();
-    $xml->load($xmlFile);
-    $isValid = $xml->validate();
-    if (!$isValid) {
-        foreach (libxml_get_errors() as $error) {
-            echo $error->message . "<br/>";
-        }
-    }
-    libxml_clear_errors();
-    return $isValid;
-}
-
-if (!isUser()) {
-    die;
+<?php
+  if (!isUser()){
+    echo "<script>setTimeout(function() 
+    { window.location.href = '/index.php'; }, 1000);</script>";
+    exit;
 }
 ?>
 
 <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <form class="bg-light p-4 rounded" enctype="multipart/form-data" method="POST">
-                <div class="mb-3">
-                    <label for="fileInput" class="form-label">Upload Playlist:</label>
-                    <input class="form-control" id="fileInput" name="xml" type="file" accept="text/xml" required>
-                </div>
-                <button class="btn btn-primary" type="submit">Upload</button>
-            </form>
+    <h2 class="mb-4 text-center">Nahrát XML Soubor</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form action="upload.php" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="xmlFile" class="form-label">Vyberte XML soubor k nahrání:</label>
+                        <input type="file" class="form-control" name="xmlFile" id="xmlFile" accept=".xml">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Nahrát</button>
+                </form>
+            </div>
         </div>
-    </div>
 </div>
 
 <?php
-
-if (isset($_FILES['xml']) && $_FILES['xml']['tmp_name']) {
-    $xmlFile = $_FILES['xml'];
-    $tmpName = $xmlFile['tmp_name'];
-
-    if (xmlValidate($tmpName, 'playlist.dtd')) {
-        $playlistName = basename($xmlFile['name']);
-        $target = "playlists/$playlistName";
-
-        if (file_exists($target)) {
-            errorBox('Playlist already exists.');
-        } elseif (move_uploaded_file($tmpName, $target)) {
-            successBox("Success - $playlistName uploaded.");
+switch ($_SERVER['REQUEST_METHOD']) {
+    case 'POST':
+        if (isset($_FILES['xmlFile']) && $_FILES['xmlFile']['error'] === UPLOAD_ERR_OK) {
+            $targetdir = XML . '/upload/';
+            $targetfile = $targetdir . basename($_FILES['xmlFile']['name']);
+            move_uploaded_file($_FILES['xmlFile']['tmp_name'], $targetfile);
+            echo "Soubor byl spěšně nahrán.";
+            $dom = new DOMDocument();
+            libxml_use_internal_errors(true); // Enable user error handling
+            $dom->load($targetfile);
+            $scheme = XML . '/playlist.xsd';
+            if (!@$dom->schemaValidate($scheme)) {
+                errorBox('Soubor není validní.');
+                xmlPrintErrors(); // Přidáno pro výpis chyb
+                unlink($targetfile);
+            } else {
+                successBox('Soubor je validní');
+            }
         } else {
-            errorBox('Failed to upload playlist.');
+            echo "Nahrání souboru selhalo.";
         }
-    } else {
-        errorBox('XML file is not valid.');
-    }
+        break;
+    
+    default:
+        break;
 }
-
-require INC . '/html-end.php';
+libxml_clear_errors();
 ?>
 
+<?php
+require INC . '/html-end.php';
+?>

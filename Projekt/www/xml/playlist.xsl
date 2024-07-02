@@ -17,7 +17,6 @@
     <xsl:template match="playlist">
         <h2>Playlist Details</h2>
         <p><strong>Author:</strong> <xsl:value-of select="@autor"/></p>
-        <p><strong>Rating:</strong> <xsl:value-of select="@rating"/></p>
         <p><strong>Users Voted:</strong> <xsl:value-of select="@users_voted"/></p>
 
         <h3>Name</h3>
@@ -28,11 +27,7 @@
 
         <xsl:if test="genre">
             <h3>Genre</h3>
-            <p><xsl:choose>
-                <xsl:when test="genre/metal">Metal</xsl:when>
-                <xsl:when test="genre/rock">Rock</xsl:when>
-                <xsl:when test="genre/other">Other</xsl:when>
-            </xsl:choose></p>
+            <p><xsl:value-of select="genre"/></p>
         </xsl:if>
 
         <h3>Album</h3>
@@ -45,14 +40,15 @@
     <xsl:template match="album">
         <div>
             <h4>Album Details</h4>
-            <p><xsl:value-of select="details"/></p>
+            <p><xsl:value-of select="@name"/></p>
+            <xsl:apply-templates select="song"/>
         </div>
     </xsl:template>
 
     <xsl:template match="song">
         <div>
-            <h4>Song Details (ID: <xsl:value-of select="@id"/>)</h4>
-            <p><xsl:value-of select="details"/></p>
+            <h4>Song Details</h4>
+            <p><xsl:value-of select="."/></p>
         </div>
     </xsl:template>
 

@@ -3,9 +3,11 @@
 $pages = [
     '/' => 'Home',
     '/login.php' => 'Přihlášení',
-    '/playlists.php' => 'Playlisty',
+    '/playlists.php' => 'Playlisty'
 ];
 
 // přihlášený uživatel smí nahrávat recepty
-if (isUser())
+if (isUser()){
     $pages['/upload.php'] = 'Nahrát';
+    $pages['/logout.php'] = 'Odhlásit';
+}

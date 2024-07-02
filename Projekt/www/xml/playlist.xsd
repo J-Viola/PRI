@@ -16,48 +16,34 @@
     <!-- Genre elements -->
     <xs:element name="genre">
         <xs:complexType>
-            <xs:choice>
-                <xs:element name="metal" type="xs:string"/>
-                <xs:element name="rock" type="xs:string"/>
-                <xs:element name="other" type="xs:string"/>
-            </xs:choice>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="type">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="metal"/>
+                                <xs:enumeration value="rock"/>
+                                <xs:enumeration value="other"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                        <xs:default value="other"/>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:simpleContent>
         </xs:complexType>
     </xs:element>
-
-    <xs:element name="album" type="albumType"/>
-    <xs:element name="song" type="songType"/>
 
     <!-- Complex types -->
     <xs:complexType name="albumType">
         <xs:sequence>
-            <xs:element name="details" type="detailsType"/>
+            <xs:element name="song" type="songType" maxOccurs="unbounded"/>
         </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="songType">
-        <xs:sequence>
-            <xs:element name="details" type="detailsType"/>
-        </xs:sequence>
-        <xs:attribute name="id" type="xs:ID" use="required"/>
-    </xs:complexType>
-
-    <xs:complexType name="detailsType">
         <xs:simpleContent>
-            <xs:extension base="xs:string">
-                <xs:attribute name="spotify_link" type="xs:string" use="optional"/>
-                <xs:attribute name="genre">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:enumeration value="metal"/>
-                            <xs:enumeration value="rock"/>
-                            <xs:enumeration value="other"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                    <xs:default value="other"/>
-                </xs:attribute>
-                <xs:attribute name="length" type="xs:string" default="min"/>
-                <xs:attribute name="author" type="xs:string" default="string"/>
-            </xs:extension>
+            <xs:extension base="xs:string"/>
         </xs:simpleContent>
     </xs:complexType>
 
@@ -68,11 +54,10 @@
                 <xs:element ref="name"/>
                 <xs:element ref="totallength"/>
                 <xs:element ref="genre" minOccurs="0"/>
-                <xs:element ref="album"/>
-                <xs:element ref="song" maxOccurs="unbounded"/>
+                <xs:element name="album" type="albumType"/>
+                <xs:element name="song" type="songType" maxOccurs="unbounded"/>
             </xs:sequence>
             <xs:attribute name="autor" type="xs:string" use="required"/>
-            <xs:attribute name="rating" type="xs:string" fixed="1"/>
             <xs:attribute name="users_voted" type="xs:string" fixed="0"/>
         </xs:complexType>
     </xs:element>

@@ -28,5 +28,6 @@ CREATE TABLE `playlists` (
   `album` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
   `listened` int unsigned NOT NULL,
-  PRIMARY KEY (`nazev`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`username`) REFERENCES `users` (`username`)
 );

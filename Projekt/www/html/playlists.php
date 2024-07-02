@@ -1,47 +1,41 @@
-<?php // vypsat playlisty:
+<?php
 require '../prolog.php';
+require INC . '/db.php';
+require INC . '/boxes.php';
 require INC . '/html-begin.php';
 require INC . '/navbar.php';
-require INC . '/tools.php';
-require INC . '/db.php';
+
+// Načtení playlistů z databáze
+$playlists = [];
+$result = dbQuery("SELECT * FROM playlists");
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $playlists[] = $row;
+    }
+}
 ?>
 
-<h1 class="py-4 text-center display-4">Playlisty</h1>
-
-<div class="bg-light py-3">
-    <div class="container">
-        <ol class="fa-ul">
-            <?php foreach (xmlFileList(PLAYLISTS) as $basename) { ?>
-                <li class="mb-2">
-                    <i class="fa fa-li fa-music"></i>
-                    <a class="text-decoration-none" href="?playlist=<?= $basename ?>">
-                        <?= $basename ?> (<?= precteno($basename) ?>)
-                    </a>
-                </li>
-            <?php } ?>
-        </ol>
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Seznam Playlistů</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <?php if (count($playlists) > 0): ?>
+                <ul class="list-group">
+                    <?php foreach ($playlists as $playlist): ?>
+                        <li class="list-group-item">
+                            <strong>Album:</strong> <?= htmlspecialchars($playlist['album']) ?><br>
+                            <strong>Uživatel:</strong> <?= htmlspecialchars($playlist['username']) ?><br>
+                            <strong>Počet přehrání:</strong> <?= htmlspecialchars($playlist['listened']) ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php else: ?>
+                <div class="alert alert-info">Žádné playlisty nebyly nalezeny.</div>
+            <?php endif; ?>
+        </div>
     </div>
 </div>
 
-<section class="container mt-4">
-    <?php // zvolený playlist:
-    if ($playlist = @$_GET['playlist']) {
-        if (TRANSFORM_SERVER_SIDE) { ?>
-            <?= xmlTransform(PLAYLISTS . "/$playlist.xml", XML . '/playlist.xsl') ?>
-        <?php } else { ?>
-            <h2 id="nazev" class="text-center h4 mb-4"></h2>
-            <script>
-                loadXML(
-                    "/serve/getPlaylist.php?playlist=<?= $playlist ?>",
-                    (xmlDom) => {
-                        // zde je možné pracovat s DOM ...
-                        document.getElementById("nazev").innerHTML =
-                            xmlDom.getElementsByTagName("name")[0].textContent;
-                        // ... atd.
-                    });
-            </script>
-        <?php }
-    } ?>
-</section>
-
-<?php require INC . '/html-end.php'; ?>
+<?php
+require INC . '/html-end.php';
+?>

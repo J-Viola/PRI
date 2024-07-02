@@ -1,7 +1,6 @@
-<!ELEMENT playlist (name, totallength, genre?, album, song+)>
+<!ELEMENT playlist (name, totallength, genre?, album, song)>
 <!ATTLIST playlist 
     autor CDATA #REQUIRED
-    rating CDATA #FIXED "1"
     users_voted CDATA #FIXED "0"
 >
 
@@ -12,20 +11,20 @@
     unit CDATA "min"
 >
 
-<!ELEMENT genre (metal|rock|other)>
-<!ELEMENT metal EMPTY>
-<!ELEMENT rock EMPTY>
-<!ELEMENT other EMPTY>
-
-<!ELEMENT album (details)>
-<!ELEMENT song (details)>
-<!ATTLIST song
-    id ID #REQUIRED
+<!ELEMENT genre (#PCDATA)>
+<!ATTLIST genre
+    type (metal|rock|other) "other"
 >
+
+<!ELEMENT album (song+)>
+<!ATTLIST album
+    name CDATA #REQUIRED
+>
+
+<!ELEMENT song (#PCDATA)>
 
 <!ELEMENT details (#PCDATA)>
 <!ATTLIST details 
-    spotify_link CDATA #IMPLIED
     genre (metal|rock|other) "other"
     length CDATA "min"
     author CDATA "string"
