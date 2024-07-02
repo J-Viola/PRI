@@ -18,7 +18,7 @@
         <xs:complexType>
             <xs:simpleContent>
                 <xs:extension base="xs:string">
-                    <xs:attribute name="type">
+                    <xs:attribute name="type" default="other">
                         <xs:simpleType>
                             <xs:restriction base="xs:string">
                                 <xs:enumeration value="metal"/>
@@ -26,7 +26,6 @@
                                 <xs:enumeration value="other"/>
                             </xs:restriction>
                         </xs:simpleType>
-                        <xs:default value="other"/>
                     </xs:attribute>
                 </xs:extension>
             </xs:simpleContent>

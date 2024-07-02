@@ -42,7 +42,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $scheme = XML . '/playlist.xsd';
             if (!@$dom->schemaValidate($scheme)) {
                 errorBox('Soubor není validní.');
-                xmlPrintErrors(); // Přidáno pro výpis chyb
                 unlink($targetfile);
             } else {
                 successBox('Soubor je validní');
