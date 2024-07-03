@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<playlist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="playlist.xsd">
+    <name>Linkin Park</name>
+    <totallength unit="min">12</totallength>
+    <genre type="rock">Rock</genre>
+    <album name="Hybrid Theory">
+        <song>Forgotten</song>
+        <song>In The End</song>
+    </album>
+    <album name="Meteora">
+        <song>Hit The Floor</song>
+        <song>Figure 09</song>
+    </album>
+</playlist>

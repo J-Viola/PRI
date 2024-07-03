@@ -53,11 +53,8 @@
                 <xs:element ref="name"/>
                 <xs:element ref="totallength"/>
                 <xs:element ref="genre" minOccurs="0"/>
-                <xs:element name="album" type="albumType"/>
-                <xs:element name="song" type="songType" maxOccurs="unbounded"/>
+                <xs:element name="album" type="albumType" maxOccurs="unbounded"/>
             </xs:sequence>
-            <xs:attribute name="autor" type="xs:string" use="required"/>
-            <xs:attribute name="users_voted" type="xs:string" fixed="0"/>
         </xs:complexType>
     </xs:element>
 

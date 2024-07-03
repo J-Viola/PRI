@@ -3,6 +3,7 @@ require '../prolog.php';
 require INC . '/html-begin.php';
 require INC . '/navbar.php';
 require INC .'/boxes.php';
+require INC .'/db.php'; // Ensure the database connection is included
 ?>
 
 <?php
@@ -45,6 +46,32 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 unlink($targetfile);
             } else {
                 successBox('Soubor je validní');
+                
+                // Extract properties from XML
+                $playlistName = $dom->getElementsByTagName('name')->item(0)->nodeValue;
+                $totalLength = $dom->getElementsByTagName('totallength')->item(0)->nodeValue;
+                $albums = [];
+                $allSongs = [];
+                foreach ($dom->getElementsByTagName('album') as $album) {
+                    $albumName = $album->getAttribute('name');
+                    $songs = [];
+                    foreach ($album->getElementsByTagName('song') as $song) {
+                        $songs[] = $song->nodeValue;
+                        $allSongs[] = $song->nodeValue;
+                    }
+                    $albums[] = $albumName . ": " . implode(", ", $songs);
+                }
+                $username = getUser();
+                
+                // Insert into database
+                global $_db_; // Use the global keyword to access the global variable
+                $albumsStr = implode("; ", $albums);
+                $allSongsStr = implode(", ", $allSongs);
+                $query = "INSERT INTO songs (playlist_name, length, albums, songs, username, favorited) VALUES (?, ?, ?, ?, ?, 0)";
+                $stmt = $_db_->prepare($query);
+                $stmt->bind_param("sssss", $playlistName, $totalLength, $albumsStr, $allSongsStr, $username);
+                $stmt->execute();
+                $stmt->close();
             }
         } else {
             echo "Nahrání souboru selhalo.";

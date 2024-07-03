@@ -16,8 +16,6 @@
 
     <xsl:template match="playlist">
         <h2>Playlist Details</h2>
-        <p><strong>Author:</strong> <xsl:value-of select="@autor"/></p>
-        <p><strong>Users Voted:</strong> <xsl:value-of select="@users_voted"/></p>
 
         <h3>Name</h3>
         <p><xsl:value-of select="name"/></p>

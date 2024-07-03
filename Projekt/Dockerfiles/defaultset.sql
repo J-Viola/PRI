@@ -22,12 +22,15 @@ INSERT INTO `users` (`id`, `username`, `password`) VALUES
 (3,	'Nemo',	  'alreadyfound');
 
 -- tabulka playlistů
-DROP TABLE IF EXISTS `playlists`;
-CREATE TABLE `playlists` (
+DROP TABLE IF EXISTS `songs`;
+CREATE TABLE `songs` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `album` varchar(100) NOT NULL,
+  `playlist_name` varchar(100) NOT NULL,
+  `length` varchar(100) NOT NULL,
+  `albums` text NOT NULL,
+  `songs` text NOT NULL,
   `username` varchar(100) NOT NULL,
-  `listened` int unsigned NOT NULL,
+  `favorited` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`username`) REFERENCES `users` (`username`)
 );

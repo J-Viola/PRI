@@ -1,8 +1,4 @@
-<!ELEMENT playlist (name, totallength, genre?, album, song)>
-<!ATTLIST playlist 
-    autor CDATA #REQUIRED
-    users_voted CDATA #FIXED "0"
->
+<!ELEMENT playlist (name, totallength, genre?, album+)>
 
 <!ELEMENT name (#PCDATA)>
 
@@ -22,10 +18,3 @@
 >
 
 <!ELEMENT song (#PCDATA)>
-
-<!ELEMENT details (#PCDATA)>
-<!ATTLIST details 
-    genre (metal|rock|other) "other"
-    length CDATA "min"
-    author CDATA "string"
->

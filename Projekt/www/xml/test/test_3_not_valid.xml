@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<playlist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="playlist.xsd">
+    <totallength unit="min">9</totallength>
+    <genre type="metal">Metal</genre>
+    <album name="Timebomb">
+        <song>Timebomb</song>
+    </album>
+    <album name="Chaos">
+        <song>Moshpit</song>
+        <song>Rise Up</song>
+    </album>
+</playlist>
