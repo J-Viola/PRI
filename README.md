@@ -41,13 +41,13 @@ Projekt využívá Docker pro snadné nasazení a správu závislostí.
 - **boxes.php**: Funkce pro zobrazení zpráv (chyby, úspěchy).
 
 ### XML
-- **playlist.xsd**: XML Schema definice pro validaci playlistů.
+- **playlist.xsd**: XML Schema pro validaci playlistů.
 - **playlist.dtd**: DTD definice pro validaci playlistů.
 - **playlist.xsl**: XSLT šablona pro transformaci XML do HTML.
 
 ### Příklady XML souborů
 - **test_1_valid.xml**: Validní XML soubor s playlistem.
-- **test_2_valid.xml**: Další validní XML soubor s playlistem.
+- **test_2_valid.xml**: Druhý validní XML soubor s playlistem.
 - **test_3_not_valid.xml**: Nevalidní XML soubor s playlistem.
 
 
